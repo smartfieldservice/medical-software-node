@@ -9,7 +9,6 @@ const app = express();
 
 //@internal module
 const databaseConnection = require("./configuration/databaseConnection");
-const homeRoute = require("./routes/homeRoute");
 const doctorRoute = require("./routes/doctorRoute");
 const registerRoute = require("./routes/registerRoute");
 const reporterRoute = require("./routes/reporterRoute");
@@ -17,6 +16,7 @@ const vaccinationRoute = require("./routes/VaccinationRoute");
 const sampleCollectionRoute = require("./routes/sampleCollectionRoute");
 const xRayRoute = require("./routes/xRayRoute");
 const labRoute = require("./routes/labRoute");
+const adminRoute = require("./routes/adminRoute");
 
 //@connect the database
 databaseConnection();
@@ -35,7 +35,7 @@ if(process.env.NODE_ENV === "development"){
 app.use(express.static(path.join(__dirname,"public")));
 
 app
-    .use("/", homeRoute)
+    .use("/", adminRoute)
     .use("/doctor", doctorRoute)
     .use("/register", registerRoute)
     .use("/reporter", reporterRoute)

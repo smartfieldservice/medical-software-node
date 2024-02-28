@@ -1,5 +1,5 @@
 //@external module
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 //@function for hashed the password
 const hashedPassword = async(password) => {

@@ -17,6 +17,7 @@ const sampleCollectionRoute = require("./routes/sampleCollectionRoute");
 const xRayRoute = require("./routes/xRayRoute");
 const labRoute = require("./routes/labRoute");
 const adminRoute = require("./routes/adminRoute");
+const dashBoardRoute = require("./routes/dashboardRourte");
 
 //@connect the database
 databaseConnection();
@@ -35,7 +36,8 @@ if(process.env.NODE_ENV === "development"){
 app.use(express.static(path.join(__dirname,"public")));
 
 app
-    .use("/", adminRoute)
+    .use("/", dashBoardRoute)
+    .use("/admin", adminRoute)
     .use("/doctor", doctorRoute)
     .use("/register", registerRoute)
     .use("/reporter", reporterRoute)

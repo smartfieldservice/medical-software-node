@@ -10,6 +10,7 @@ const patientSchema = mongoose.Schema({
     },
     passport : {
         type : String,
+        unique : true,
         require : true
     },
     phone : {

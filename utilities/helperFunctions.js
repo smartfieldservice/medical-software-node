@@ -1,5 +1,6 @@
 //@external module
 const bcrypt = require('bcryptjs');
+const moment = require('moment/moment');
 
 //@function for hashed the password
 const hashedPassword = async(password) => {
@@ -39,9 +40,24 @@ const pagination = async(pageNo, pageLimit , data) => {
         }
 }
 
+const formatDate = function(date){
+
+    const parseDate = moment(date, 'DD-MM-YYYY', true);
+    
+    if(parseDate.isValid()){
+        return parseDate.format('YYYY-MM-DD');
+    }else{
+        console.log('Invalid date format !');
+        return;
+    }
+
+}
+
+
 //@exports
 module.exports = {  hashedPassword,
                     verifyPassword,
                     escapeString,
-                    pagination
+                    pagination,
+                    formatDate
                 }

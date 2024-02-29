@@ -1,7 +1,9 @@
 const patientModel = require("../models/patientModel");
-const { escapeString, formatDate, pagination } = require("../utilities/helperFunctions");
-const { errorResponse, successResponse } = require("../utilities/responserHandler")
-
+const { escapeString, 
+        formatDate, 
+        pagination } = require("../utilities/helperFunctions");
+const { errorResponse, 
+        successResponse } = require("../utilities/responserHandler")
 
 //@patient search using passport id by search box
 const searchPatient = async(req, res) => {
@@ -16,7 +18,6 @@ const searchPatient = async(req, res) => {
             patientData = await patientModel.find({
                 $or : [{ passport : passport }]
             });
-            
         }
 
         successResponse(200,`${patientData.length} patient's found !`,patientData,res);

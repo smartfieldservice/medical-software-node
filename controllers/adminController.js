@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel");
-const { hashedPassword } = require("../utilities/helperFunctions");
-const { errorResponse, successResponse } = require("../utilities/responserHandler");
+const { hashedPassword, generateSlug } = require("../utilities/helperFunctions");
+const { errorResponse, 
+        successResponse } = require("../utilities/responserHandler");
 
 
 const searchUser = async(req, res) => {
@@ -9,7 +10,7 @@ const searchUser = async(req, res) => {
     } catch (error) {
         errorResponse(error,res);
     }
-}
+};
 
 //@for user registration
 //@protected route(superAdmin)
@@ -19,10 +20,12 @@ const createUser = async(req, res) => {
         const hashPassword = await hashedPassword(req.body.password);
 
         const newUser = new userModel({
-            name : req.body.name,
+            firstName : req.body.firstName,
+            lastName : req.body.lastName,
             phone : req.body.phone,
             password : hashPassword,
-            role : req.body.role
+            role : req.body.role,
+            slug : generateSlug(req.body.firstName, req.body.lastName)
         });
 
         await newUser.save();
@@ -44,7 +47,7 @@ const editUser = async(req, res) => {
     } catch (error) {
         errorResponse(error,res);
     }
-}
+};
 
 const deleteUser = async(req, res) => {
     try {
@@ -52,7 +55,7 @@ const deleteUser = async(req, res) => {
     } catch (error) {
         errorResponse(error,res);
     }
-}
+};
 
 //@exports
 module.exports = {  searchUser,

@@ -53,11 +53,24 @@ const formatDate = function(date){
 
 }
 
+const generateSlug = (s1, s2) => {
+
+    let slug = `${s1}%${s2}`;
+
+    let time = Date.now();
+
+    slug = `${slug}%${time}`;
+
+    return slug.replace(/\s+/g, "-");
+
+}
+
 
 //@exports
 module.exports = {  hashedPassword,
                     verifyPassword,
                     escapeString,
                     pagination,
-                    formatDate
+                    formatDate,
+                    generateSlug
                 }

@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 
 //@create userSchema
 const userSchema = mongoose.Schema({
-    name : {
+    firstName : {
+        type : String,
+        require : true
+    },
+    lastName : {
         type : String,
         require : true
     },
@@ -19,6 +23,10 @@ const userSchema = mongoose.Schema({
     role : {
         type : String,
         enum : ['admin', 'doctor' , 'register' , 'reporter', 'vaccination', 'sampleCollection', 'xRay', 'lab'],
+    },
+    slug : {
+        type : String,
+        required :true
     }
 },{
     timestamps : true

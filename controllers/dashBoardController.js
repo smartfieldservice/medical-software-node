@@ -1,4 +1,4 @@
-
+//@external module
 const userModel = require("../models/userModel");
 const { errorResponse } = require("../utilities/responserHandler")
 

@@ -9,12 +9,18 @@ const { searchUser,
         deleteUser } = require('../controllers/adminController');
 const { userDetails } = require('../controllers/common/commonController');
 
+
+adminRoute
+        .route("/:clue")
+        //@http://localhost:5000/admin/re
+        .get(searchUser);
+
 adminRoute
         .route("/")
         //@http://localhost:5000/admin
-        .get(searchUser)
         .post(createUser)
         .put(editUser)
+        //@http://localhost:5000/admin?id=<id>
         .delete(deleteUser);
 
 adminRoute

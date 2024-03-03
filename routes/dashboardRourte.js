@@ -7,6 +7,7 @@ const { totalInformation } = require("../controllers/dashBoardController")
 
 dashBoardRoute
             .route("/")
+            //@http://localhost:5000/dashboard/
             .get(totalInformation)
 
 //@exports

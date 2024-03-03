@@ -1,8 +1,9 @@
+//@internal module
 const userModel = require("../models/userModel");
 const { hashedPassword, generateSlug, escapeString } = require("../utilities/helperFunctions");
 const { errorResponse, 
         successResponse, 
-        newError} = require("../utilities/responserHandler");
+        newError } = require("../utilities/responserHandler");
 
 //@search an user by using name,email or phone
 //@protected route(admin)

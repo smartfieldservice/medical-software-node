@@ -1,5 +1,7 @@
 //@external module
 const userModel = require("../models/userModel");
+
+//@internal module
 const { errorResponse } = require("../utilities/responserHandler")
 
 const totalInformation = async(req, res) => {

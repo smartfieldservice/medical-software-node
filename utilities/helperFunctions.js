@@ -1,6 +1,7 @@
 //@external module
 const bcrypt = require('bcryptjs');
 const moment = require('moment/moment');
+const jwt = require("jsonwebtoken");
 
 //@function for hashed the password
 const hashedPassword = async(password) => {
@@ -18,6 +19,13 @@ const verifyPassword = async(inputPassword, hashPassword) => {
     } catch (error) {
         return error;
     }
+}
+
+//@function for create authentication for an account using jwt
+const createAuthToken = function(payload){
+    return jwt.sign(payload,process.env.JWT_SECRET_KEY,{
+        expiresIn:process.env.JWT_EXPIRITY
+    });
 }
 
 //@function for regular expression string
@@ -40,6 +48,7 @@ const pagination = async(pageNo, pageLimit , data) => {
         }
 }
 
+//@funtion for format date
 const formatDate = function(date){
 
     const parseDate = moment(date, 'DD-MM-YYYY', true);
@@ -53,6 +62,7 @@ const formatDate = function(date){
 
 }
 
+//@function for make slug
 const generateSlug = (s1, s2) => {
 
     let slug = `${s1}%${s2}`;
@@ -69,6 +79,7 @@ const generateSlug = (s1, s2) => {
 //@exports
 module.exports = {  hashedPassword,
                     verifyPassword,
+                    createAuthToken,
                     escapeString,
                     pagination,
                     formatDate,

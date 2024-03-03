@@ -1,3 +1,4 @@
+//@internal module
 const patientModel = require("../models/patientModel");
 const { escapeString, 
         formatDate, 

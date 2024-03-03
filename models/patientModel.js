@@ -63,6 +63,10 @@ const patientSchema = mongoose.Schema({
         enum : ['Hindu', 'Islam', 'Buddha', 'Christian'],
         require : true
     },
+    image_url : {
+        type : String,
+        required : true
+    }
     
 },{
     timestamps : true

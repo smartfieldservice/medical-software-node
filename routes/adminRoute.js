@@ -8,6 +8,8 @@ const { searchUser,
         editUser, 
         deleteUser } = require('../controllers/adminController');
 const { userDetails } = require('../controllers/common/commonController');
+const { registrationValidation, 
+        validate } = require('../middleware/validationHandler');
 
 adminRoute
         .route("/user")
@@ -22,7 +24,7 @@ adminRoute
 adminRoute
         .route("/")
         //@http://localhost:5000/admin
-        .post(createUser)
+        .post(  registrationValidation, validate, createUser)
         .put(editUser)
         //@http://localhost:5000/admin?id=<id>
         .delete(deleteUser);

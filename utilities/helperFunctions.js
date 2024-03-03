@@ -71,6 +71,8 @@ const generateSlug = (s1, s2) => {
 
     slug = `${slug}%${time}`;
 
+    slug = slug.toLowerCase();
+
     return slug.replace(/\s+/g, "-");
 
 }

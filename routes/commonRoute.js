@@ -5,11 +5,13 @@ const commonRoute = express.Router();
 //@internal module
 const { userLogin, 
         userDetails } = require("../controllers/common/commonController");
+const { loginValidation, 
+        validate } = require("../middleware/validationHandler");
 
 commonRoute
         //@http://localhost:5000/login
         .route("/login")
-        .post(userLogin);
+        .post(  loginValidation, validate, userLogin);
 
 commonRoute
         .route("/profile")

@@ -1,6 +1,6 @@
 //@internal module
 const userModel = require("../../models/userModel");
-const { verifyPassword, createAuthToken } = require("../../utilities/helperFunctions");
+const { verifyPassword, createAuthToken, hashedPassword } = require("../../utilities/helperFunctions");
 const { errorResponse, 
         newError, 
         successResponse } = require("../../utilities/responserHandler");
@@ -71,7 +71,54 @@ const userLogin = async(req, res) => {
 
 }
 
+const changeUserPassword = async(req, res)=> {
+
+    try {
+
+        const userData = await userModel.findOne({ _id : req.body.id});
+
+        if(userData){
+
+            if(await verifyPassword(req.body.oldPassword,userData.password)){
+
+                if( req.body.newPassword === req.body.confirmPassword){
+
+                    const hashPassword = await hashedPassword(req.body.newPassword);
+
+                    await userModel.findByIdAndUpdate({
+                        _id : req.body.id
+                    },{
+                        password : hashPassword
+                    }, {
+                        new : true
+                    });
+
+                    successResponse(200,"Password change successfully !", {}, res);
+
+                }else{
+                    //@new & confirm password not matched
+                    //console.log("two password not matched");
+                    throw newError(404);
+                }
+
+            }else{
+                //@old password not matched
+                //console.log("old password not matched");
+                throw newError(404);
+            }
+
+        }else{
+            //console.log("user data not found");
+            throw newError(404);
+        }
+        
+    } catch (error) {
+        errorResponse(error, res);
+    }
+}
+
 //@exports
 module.exports = {  userDetails,
-                    userLogin
+                    userLogin,
+                    changeUserPassword
                 }

@@ -14,7 +14,7 @@ const createReport = async(req, res) => {
 
             passport : req.body.passport,
             registrationId : req.body.registrationId,
-            image_url : "",
+            image_url : req.body.image_url,
             height : req.body.height,
             weight : req.body.weight,
             bp : req.body.bp,
@@ -67,7 +67,7 @@ const createReport = async(req, res) => {
         successResponse(200,"New report added successfully !",newReport, res);
 
     } catch (error) {
-        
+
         if(error.code === 11000){
             error.message = "Report already exist !";
         }

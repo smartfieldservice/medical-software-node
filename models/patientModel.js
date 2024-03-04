@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 //@create userSchema
 const patientSchema = mongoose.Schema({
 
-    registrationId : {
-        type : String,
-        required : true
-    },
     passport : {
         type : String,
         unique : true,
         require : true
+    },
+    registrationId : {
+        type : String,
+        required : true
     },
     phone : {
         type : String,

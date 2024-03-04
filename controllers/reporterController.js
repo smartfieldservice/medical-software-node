@@ -4,18 +4,12 @@ const { errorResponse,
         successResponse,
         newError } = require("../utilities/responserHandler")
 
+//@create a new report
+//protected route(reporter)
 const createReport = async(req, res) => {
 
     try {
-
-        const reportdata = await reportModel.findOne({
-            passport : req.body.passport
-        });
-
-        if(reportdata){
-            res.status(200).json({ message : "Report already exist !"});
-        }
-
+   
         const newReport = new reportModel({
 
             passport : req.body.passport,
@@ -73,10 +67,16 @@ const createReport = async(req, res) => {
         successResponse(200,"New report added successfully !",newReport, res);
 
     } catch (error) {
+        
+        if(error.code === 11000){
+            error.message = "Report already exist !";
+        }
         errorResponse(error, res);        
     }
 }
 
+//@edit an existed report
+//protected route(reporter)
 const editReport = async(req, res) => {
 
     try {

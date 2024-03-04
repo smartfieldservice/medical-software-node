@@ -51,16 +51,15 @@ const getPatient = async(req, res) => {
             const startDate = formatDate(from);
 
             if(startDate){
+
                 let date = new Date(startDate);
                 date.setHours(0,0,0,0);
-
-                console.log(date);
                 queryObject.createdAt = { $gte : date };
             }
         }
 
         if(to){
-            console.log(from,to,sort);
+           
             const endDate = formatDate(to);
 
             if(endDate){

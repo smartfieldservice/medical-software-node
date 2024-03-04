@@ -42,7 +42,7 @@ app
     .use("/admin", adminRoute)
     .use("/doctor", doctorRoute)
     .use("/register", registerRoute)
-    .use("/reporter", reporterRoute)
+    .use("/report", reporterRoute)
     .use("/vaccination", vaccinationRoute)
     .use("/sample-collection", sampleCollectionRoute)
     .use("/x-ray", xRayRoute)

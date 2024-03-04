@@ -1,6 +1,8 @@
 //@internal module
 const userModel = require("../../models/userModel");
-const { verifyPassword, createAuthToken, hashedPassword } = require("../../utilities/helperFunctions");
+const { verifyPassword, 
+        createAuthToken, 
+        hashedPassword } = require("../../utilities/helperFunctions");
 const { errorResponse, 
         newError, 
         successResponse } = require("../../utilities/responserHandler");

@@ -8,6 +8,7 @@ const { createReport,
 
 reporterRoute
             .route("/")
+            //@http://localhost:5000/report
             .post(createReport)
             .put(editReport);
 

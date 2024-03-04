@@ -1,6 +1,8 @@
 //@internal module
 const userModel = require("../models/userModel");
-const { hashedPassword, generateSlug, escapeString } = require("../utilities/helperFunctions");
+const { hashedPassword, 
+        generateSlug, 
+        escapeString } = require("../utilities/helperFunctions");
 const { errorResponse, 
         successResponse, 
         newError } = require("../utilities/responserHandler");
@@ -85,7 +87,6 @@ const deleteUser = async(req, res) => {
             await userModel.findByIdAndDelete({
                 _id : req.query.id
             });
-
 
             res.status(200).json({message : "User deleted successfully !"});
 

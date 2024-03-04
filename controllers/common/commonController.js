@@ -55,6 +55,7 @@ const userLogin = async(req, res) => {
                 }
             }
 
+            //@jwt token
             const token = createAuthToken(userPayload);
 
             const authToken = {
@@ -63,6 +64,9 @@ const userLogin = async(req, res) => {
                 role : userData.role,
                 token : token
             }
+
+            //@set an token object for role-based access & session check
+            res.set('token', token);
 
             res.status(200).json(authToken);
 

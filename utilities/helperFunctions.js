@@ -28,6 +28,17 @@ const createAuthToken = function(payload){
     });
 }
 
+//@function for verify Authentication token of an account using jwt
+const verifyAuthtoken = function(authToken){
+    return jwt.verify(authToken,process.env.JWT_SECRET_KEY);
+}
+
+//@function for decode an account of user or admin
+const decodeAccount = function(authToken){
+    return jwt.decode(authToken);
+}
+
+
 //@function for regular expression string
 const escapeString = function(str){
     return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"); 
@@ -82,6 +93,8 @@ const generateSlug = (s1, s2) => {
 module.exports = {  hashedPassword,
                     verifyPassword,
                     createAuthToken,
+                    verifyAuthtoken,
+                    decodeAccount,
                     escapeString,
                     pagination,
                     formatDate,

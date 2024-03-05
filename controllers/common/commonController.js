@@ -8,13 +8,14 @@ const { errorResponse,
         newError, 
         successResponse } = require("../../utilities/responserHandler");
 
+//@user details
+//@for admin using id
+//@for users using slug
 const userDetails = async(req, res) => {
 
     try {
 
         let userData;
-
-        console.log(req.query.id)
 
         if(req.query.id){
             //@using id for admin
@@ -36,6 +37,8 @@ const userDetails = async(req, res) => {
 
 }
 
+//@for user login
+//@protected route(all user)
 const userLogin = async(req, res) => {
 
     try {
@@ -78,6 +81,8 @@ const userLogin = async(req, res) => {
 
 }
 
+//@change user password
+//protected route(all user)
 const changeUserPassword = async(req, res) => {
 
     try {
@@ -124,6 +129,8 @@ const changeUserPassword = async(req, res) => {
     }
 }
 
+//@get the patient information by passport
+//@protected route
 const patientInfoByPassport = async(req, res) => {
     
     try {
@@ -132,7 +139,7 @@ const patientInfoByPassport = async(req, res) => {
             passport : req.query.passport
         });
 
-        successResponse(200,`${patientData.length} patient found`, patientData, res);
+        successResponse(200,"patient found", patientData, res);
 
     } catch (error) {
         errorResponse(error, res);

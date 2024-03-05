@@ -82,7 +82,7 @@ const editReport = async(req, res) => {
     try {
 
         const reportdata = await reportModel.findOne({
-            passport : req.body.passport
+            passport : req.query.passport
         });
         
         if(! reportdata){
@@ -90,7 +90,7 @@ const editReport = async(req, res) => {
         }
         
         await reportModel.findOneAndUpdate({
-            passport : req.body.passport
+            _id : reportdata._id
         },{
             height : req.body.height,
             weight : req.body.weight,

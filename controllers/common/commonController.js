@@ -1,5 +1,6 @@
 //@internal module
 const userModel = require("../../models/userModel");
+const patientModel = require("../../models/patientModel");
 const { verifyPassword, 
         createAuthToken, 
         hashedPassword } = require("../../utilities/helperFunctions");
@@ -77,7 +78,7 @@ const userLogin = async(req, res) => {
 
 }
 
-const changeUserPassword = async(req, res)=> {
+const changeUserPassword = async(req, res) => {
 
     try {
 
@@ -123,8 +124,24 @@ const changeUserPassword = async(req, res)=> {
     }
 }
 
+const patientInfoByPassport = async(req, res) => {
+    
+    try {
+
+        const patientData = await patientModel.findOne({
+            passport : req.query.passport
+        });
+
+        successResponse(200,`${patientData.length} patient found`, patientData, res);
+
+    } catch (error) {
+        errorResponse(error, res);
+    }
+}
+
 //@exports
 module.exports = {  userDetails,
                     userLogin,
-                    changeUserPassword
+                    changeUserPassword,
+                    patientInfoByPassport
                 }

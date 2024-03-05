@@ -10,6 +10,7 @@ reporterRoute
             .route("/")
             //@http://localhost:5000/report
             .post(createReport)
+            //@http://localhost:5000/report?passport=
             .put(editReport);
 
 //@exports

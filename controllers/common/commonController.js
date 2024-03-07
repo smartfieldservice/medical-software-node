@@ -28,8 +28,7 @@ const userDetails = async(req, res) => {
         }else{
             throw newError(404);
         }
-
-        successResponse(200,`User data found successfully !`,userData, res);
+        successResponse(200,`User data found successfully !`, userData, res);
 
     } catch (error) {
         errorResponse(error, res);
@@ -43,11 +42,11 @@ const userLogin = async(req, res) => {
 
     try {
 
-        const userData = await userModel.findOne({ email : req.body.email});
+        const userData = await userModel.findOne({ email : req.body.email });
 
         if(!userData){
             throw newError(404);
-        }else if(! await verifyPassword(req.body.password,userData.password)){
+        }else if(! await verifyPassword( req.body.password, userData.password )){
             throw newError(404);
         }else{
 
@@ -60,7 +59,7 @@ const userLogin = async(req, res) => {
             }
 
             //@jwt token
-            const token = createAuthToken(userPayload);
+            const token = createAuthToken( userPayload );
 
             const authToken = {
                 id : userData._id,
@@ -72,11 +71,10 @@ const userLogin = async(req, res) => {
             //@set an token object for role-based access & session check
             res.set('token', token);
 
-            res.status(200).json(authToken);
-
+            res.status(200).json( authToken );
         }
     } catch (error) {
-        errorResponse(error,res);
+        errorResponse(error, res);
     }
 
 }
@@ -87,11 +85,11 @@ const changeUserPassword = async(req, res) => {
 
     try {
 
-        const userData = await userModel.findOne({ _id : req.body.id});
+        const userData = await userModel.findOne({ _id : req.body.id });
 
         if(userData){
 
-            if(await verifyPassword(req.body.oldPassword,userData.password)){
+            if(await verifyPassword( req.body.oldPassword, userData.password )){
 
                 if( req.body.newPassword === req.body.confirmPassword){
 

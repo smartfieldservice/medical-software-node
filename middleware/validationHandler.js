@@ -1,5 +1,6 @@
 //@external module
-const { body , validationResult } = require("express-validator");
+const { body , 
+        validationResult } = require("express-validator");
 const validator = require("validator");
 const { errorResponse } = require("../utilities/responserHandler");
 

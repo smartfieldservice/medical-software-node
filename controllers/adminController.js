@@ -22,10 +22,10 @@ const searchUser = async(req, res) => {
             userData = await userModel.find({
 
                 $or : [
-                    {firstName : queryString},
-                    {lastName : queryString},
-                    {email : queryString },
-                    {phone : queryPhone }
+                    { firstName : queryString },
+                    { lastName : queryString },
+                    { email : queryString },
+                    { phone : queryPhone }
                 ]
             });
         }

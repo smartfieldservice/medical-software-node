@@ -85,6 +85,7 @@ const changeUserPassword = async(req, res) => {
 
     try {
 
+        //@id comes form hidden field
         const userData = await userModel.findOne({ _id : req.body.id });
 
         if(userData){

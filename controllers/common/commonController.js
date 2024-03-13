@@ -33,7 +33,6 @@ const userDetails = async(req, res) => {
     } catch (error) {
         errorResponse(error, res);
     }
-
 }
 
 //@for user login

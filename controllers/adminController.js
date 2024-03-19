@@ -7,6 +7,17 @@ const { errorResponse,
         successResponse, 
         newError } = require("../utilities/responserHandler");
 
+const findUser = async(id, email) => {
+    try {
+        if(email){
+            return await userModel.findOne({email});
+        }
+        return await userModel.findById({_id : id});
+    } catch (error) {
+        throw error;
+    }
+}
+
 //@search an user by using name,email or phone
 //@protected route(admin)
 const searchUser = async(req, res) => {
@@ -41,6 +52,12 @@ const searchUser = async(req, res) => {
 //@protected route(superAdmin)
 const createUser = async(req, res) => {
     try {
+
+        const userExist = await findUser(undefined,req.body.email);
+
+        if(userExist){
+            throw newError(409);
+        }
         
         const hashPassword = await hashedPassword(req.body.password);
 
@@ -59,10 +76,6 @@ const createUser = async(req, res) => {
         successResponse(200, `New ${req.body.role} saved successfully !`, newUser, res);
 
     } catch (error) {
-
-        if(error.code === 11000){
-            error.message = "Email already exist !";
-        }
         errorResponse(error,res);
     }
 };
@@ -80,7 +93,7 @@ const editUser = async(req, res) => {
 const deleteUser = async(req, res) => {
     try{
 
-        const userData = await userModel.findOne({_id : req.query.id});
+        const userData = await findUser(req.query.id,undefined);
 
         if(userData){
 

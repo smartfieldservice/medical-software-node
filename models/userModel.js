@@ -34,6 +34,17 @@ const userSchema = mongoose.Schema({
         required :true
     }
 },{
+    toJSON : {
+        transform : function(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.password;
+            delete ret.slug;
+            delete ret.__v;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+        }
+    },
     timestamps : true
 });
 

@@ -150,6 +150,16 @@ const reportSchema = mongoose.Schema({
         type : String
     }
 },{
+    toJSON : {
+        transform : function(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.image_url;
+            delete ret.__v;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+        }
+    },
     timestamps : true
 });
 

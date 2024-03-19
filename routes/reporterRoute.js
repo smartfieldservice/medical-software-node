@@ -3,18 +3,17 @@ const express = require("express");
 const reporterRoute = express.Router();
 
 //@internal module
-const { createReport, 
-        editReport } = require("../controllers/reporterController");
-const { patientInfoByPassport } = require("../controllers/common/commonController");
-
+const { reporterController, 
+        commonController } = require("../controllers/controllerExporter");
+        
 reporterRoute
             .route("/")
             //@http://localhost:5000/report?passport=
-            .get(patientInfoByPassport)
+            .get(commonController.patientInfoByPassport)
             //@http://localhost:5000/report
-            .post(createReport)
+            .post(reporterController.createReport)
             //@http://localhost:5000/report?passport=
-            .put(editReport);
+            .put(reporterController.editReport);
 
 //@exports
 module.exports = reporterRoute;

@@ -1,5 +1,5 @@
 //@internal module
-const userModel = require("../models/userModel");
+const { userModel } = require("../models/modelExporter");
 const { hashedPassword, 
         generateSlug, 
         escapeString } = require("../utilities/helperFunctions");

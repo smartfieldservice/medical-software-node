@@ -9,16 +9,18 @@ const app = express();
 
 //@internal module
 const databaseConnection = require("./configuration/databaseConnection");
-const doctorRoute = require("./routes/doctorRoute");
-const registerRoute = require("./routes/registerRoute");
-const reporterRoute = require("./routes/reporterRoute");
-const vaccinationRoute = require("./routes/VaccinationRoute");
-const sampleCollectionRoute = require("./routes/sampleCollectionRoute");
-const xRayRoute = require("./routes/xRayRoute");
-const labRoute = require("./routes/labRoute");
-const adminRoute = require("./routes/adminRoute");
-const dashBoardRoute = require("./routes/dashboardRourte");
-const commonRoute = require("./routes/commonRoute");
+
+const { adminRoute, 
+        doctorRoute, 
+        registerRoute,
+        labRoute,
+        reporterRoute,
+        vaccinationRoute,
+        sampleCollectionRoute,
+        dashBoardRoute,
+        xRayRoute,
+        commonRoute
+    } = require('./routes/routeExporter')
 
 //@connect the database
 databaseConnection();

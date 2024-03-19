@@ -1,5 +1,5 @@
 //@internal module
-const reportModel = require("../models/reportModel");
+const { reportModel } = require("../models/modelExporter")
 const { errorResponse, 
         successResponse,
         newError } = require("../utilities/responserHandler")

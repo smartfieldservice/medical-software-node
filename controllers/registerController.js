@@ -1,5 +1,5 @@
 //@internal module
-const patientModel = require("../models/patientModel");
+const { patientModel } = require("../models/modelExporter");
 const { escapeString, 
         formatDate, 
         pagination } = require("../utilities/helperFunctions");

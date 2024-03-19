@@ -3,18 +3,17 @@ const express = require("express");
 const doctorRoute = express.Router();
 
 //@internal module
-const { getPatient, 
-        searchPatient } = require("../controllers/registerController");
+const { registerController } = require("../controllers/controllerExporter");
 
 doctorRoute
         .route("/")
         //@http://localhost:5000/doctor?slug=&from=&to=&sort=
-        .get(getPatient)
+        .get(registerController.getPatient)
 
 doctorRoute
         .route("/:passport")
         //@http://localhost:5000/doctor/033
-        .get(searchPatient)
+        .get(registerController.searchPatient)
 
 //@exports
 module.exports = doctorRoute;

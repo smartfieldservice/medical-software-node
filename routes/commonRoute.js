@@ -3,26 +3,24 @@ const express = require("express");
 const commonRoute = express.Router();
 
 //@internal module
-const { userLogin, 
-        userDetails, 
-        changeUserPassword} = require("../controllers/common/commonController");
+const { commonController } = require("../controllers/controllerExporter");
 const { loginValidation, 
         validate } = require("../middleware/validationHandler");
 
 commonRoute
         //@http://localhost:5000/login
         .route("/login")
-        .post(  loginValidation, validate, userLogin);
+        .post(  loginValidation, validate, commonController.userLogin);
 
 commonRoute
         .route("/profile")
         //@http://localhost:5000/profile?slug=Heri%Ansk%1709199833334
-        .get(userDetails);
+        .get(commonController.userDetails);
 
 commonRoute
         .route("/change-Password")
         //@http://localhost:5000/change-password
-        .post(changeUserPassword);
+        .post(commonController.changeUserPassword);
 
 //@exports
 module.exports = commonRoute;

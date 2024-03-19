@@ -7,12 +7,12 @@ const { errorResponse,
         successResponse, 
         newError } = require("../utilities/responserHandler");
 
-const findUser = async(id, email) => {
+const findUser = async({id, email}) => {
     try {
-        if(email){
-            return await userModel.findOne({email});
+        if(id){
+            return await userModel.findById({_id : id});
         }
-        return await userModel.findById({_id : id});
+        return await userModel.findOne({ email });
     } catch (error) {
         throw error;
     }
@@ -53,7 +53,9 @@ const searchUser = async(req, res) => {
 const createUser = async(req, res) => {
     try {
 
-        const userExist = await findUser(undefined,req.body.email);
+        const email = req.body.email;
+
+        const userExist = await findUser({ email });
 
         if(userExist){
             throw newError(409);
@@ -64,7 +66,7 @@ const createUser = async(req, res) => {
         const newUser = new userModel({
             firstName : req.body.firstName,
             lastName : req.body.lastName,
-            email : req.body.email,
+            email,
             phone : req.body.phone,
             password : hashPassword,
             role : req.body.role,
@@ -93,7 +95,8 @@ const editUser = async(req, res) => {
 const deleteUser = async(req, res) => {
     try{
 
-        const userData = await findUser(req.query.id,undefined);
+        const id = req.query.id
+        const userData = await findUser({ id });
 
         if(userData){
 

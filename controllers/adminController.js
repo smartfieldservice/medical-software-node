@@ -7,16 +7,7 @@ const { errorResponse,
         successResponse, 
         newError } = require("../utilities/responserHandler");
 
-const findUser = async({id, email}) => {
-    try {
-        if(id){
-            return await userModel.findById({_id : id});
-        }
-        return await userModel.findOne({ email });
-    } catch (error) {
-        throw error;
-    }
-}
+const { userHandler } = require("../utilities/utilityExporter")
 
 //@search an user by using name,email or phone
 //@protected route(admin)
@@ -55,7 +46,7 @@ const createUser = async(req, res) => {
 
         const email = req.body.email;
 
-        const userExist = await findUser({ email });
+        const userExist = await userHandler.findPerson({ email });
 
         if(userExist){
             throw newError(409);
@@ -96,7 +87,7 @@ const deleteUser = async(req, res) => {
     try{
 
         const id = req.query.id
-        const userData = await findUser({ id });
+        const userData = await userHandler.findPerson({ id });
 
         if(userData){
 

@@ -1,8 +1,9 @@
 //@internal module
-const { reportModel } = require("../models/modelExporter")
+const { reportModel } = require("../models/modelExporter");
 const { errorResponse, 
         successResponse,
-        newError } = require("../utilities/responserHandler")
+        newError } = require("../utilities/responserHandler");
+const { userHandler } = require("../utilities/utilityExporter");
 
 //@create a new report
 //protected route(reporter)
@@ -80,10 +81,9 @@ const createReport = async(req, res) => {
 const editReport = async(req, res) => {
 
     try {
+        const passport = req.query.passport;
 
-        const reportdata = await reportModel.findOne({
-            passport : req.query.passport
-        });
+        const reportdata = await userHandler.findPerson({ passport });
         
         if(! reportdata){
             throw newError(404);

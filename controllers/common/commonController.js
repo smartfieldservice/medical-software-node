@@ -1,12 +1,12 @@
 //@internal module
 const userModel = require("../../models/userModel");
-const patientModel = require("../../models/patientModel");
 const { verifyPassword, 
         createAuthToken, 
         hashedPassword } = require("../../utilities/helperFunctions");
 const { errorResponse, 
         newError, 
         successResponse } = require("../../utilities/responserHandler");
+const { userHandler } = require("../../utilities/utilityExporter");
 
 //@user details
 //@for admin using id
@@ -17,15 +17,18 @@ const userDetails = async(req, res) => {
 
         let userData;
 
-        if(req.query.id){
+        const { id , slug } = req.query;
+
+        if(id){
             //@using id for admin
-            userData = await userModel.findOne({ _id : req.query.id });
+            userData = await userHandler.findPerson({ id });
 
-        }else if(req.query.slug){
+        }else if(slug){
             //@using slug for user
-            userData = await userModel.findOne({ slug : req.query.slug });
+            userData = await userHandler.findPerson({ slug });
 
-        }else{
+        }
+        if(!userData){
             throw newError(404);
         }
         successResponse(200,`User data found successfully !`, userData, res);
@@ -41,12 +44,18 @@ const userLogin = async(req, res) => {
 
     try {
 
-        const userData = await userModel.findOne({ email : req.body.email });
+        const email = req.body.email;
+
+        const userData = await userHandler.findPerson({ email });
 
         if(!userData){
+
             throw newError(404);
+
         }else if(! await verifyPassword( req.body.password, userData.password )){
+            
             throw newError(404);
+        
         }else{
 
             //@create payload for jwt
@@ -71,6 +80,7 @@ const userLogin = async(req, res) => {
             res.set('token', token);
 
             res.status(200).json( authToken );
+
         }
     } catch (error) {
         errorResponse(error, res);
@@ -85,7 +95,9 @@ const changeUserPassword = async(req, res) => {
     try {
 
         //@id comes form hidden field
-        const userData = await userModel.findOne({ _id : req.body.id });
+        const id =req.body.id;
+
+        const userData = await userHandler.findPerson({ id });
 
         if(userData){
 
@@ -133,10 +145,13 @@ const patientInfoByPassport = async(req, res) => {
     
     try {
 
-        const patientData = await patientModel.findOne({
-            passport : req.query.passport
-        });
+        const passport = req.query.passport;
 
+        const patientData = await userHandler.findPerson({ passport });
+
+        if(!patientData){
+            throw newError(404);
+        }
         successResponse(200,"patient found", patientData, res);
 
     } catch (error) {
